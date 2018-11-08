@@ -27,8 +27,6 @@ public:
 	void Update(GameTimer frameRate);
 	void health();
 	void ammunition();
-	void move();
-
 
 };
 

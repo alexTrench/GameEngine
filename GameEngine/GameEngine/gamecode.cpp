@@ -297,9 +297,12 @@ ErrorType Game::StartOfGame()
    // Code to set up your game *********************************************
    // **********************************************************************
 	
-	//DOESNT DO ANYTHING CURRENTLY 
-	//GET CHANGED
+	//frame counter start function
+	theTimer.mark();
+
+	//sets strat position of the ship
 	Vector2D pos(600, 600);
+
 	ship.Initialise(pos);
 
 	//Sound Play System
@@ -318,7 +321,6 @@ ErrorType Game::Update()
 {
 
 	//reads the framerate
-	theTimer.mark();
 	theTimer.mdFrameTime;
 
 	// Check for entry to pause menu
@@ -335,22 +337,12 @@ ErrorType Game::Update()
 		
    // Your code goes here *************************************************
    // *********************************************************************
-   //local velosity variable
-
-
-
-	//Vector2D velosity;
-	//velosity.setBearing(angle, 4.0f);
-
-	//CHANGE TO RENDER FROM SPACESHIP CLASS
-	//MyDrawEngine *pDE = MyDrawEngine::GetInstance();
-	//pDE->DrawAt(pos, image, 1.0f, angle,0.3);
-
-
-	//Does something 
-	ship.Render();
-	ship.Update(theTimer);
-
+	
+	//need to be a pointer to the ship
+	//for it to work 
+	//dunno how
+	//ship->Update(theTimer.mdFrameTime);
+	//ship->Render();
 
    // *********************************************************************
    // *********************************************************************

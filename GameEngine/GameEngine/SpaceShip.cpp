@@ -70,8 +70,3 @@ void SpaceShip::ammunition()
 {
 
 }
-
-void SpaceShip::move()
-{
-
-}
