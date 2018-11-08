@@ -48,6 +48,9 @@
     <ClInclude Include="vector2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SpaceShip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp">
@@ -78,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="wincode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceShip.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

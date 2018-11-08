@@ -10,6 +10,7 @@
 #include "errorlogger.h"
 #include <math.h>
 #include "shapes.h"
+#include "SpaceShip.h"
 
 
 Game::Game()
@@ -295,7 +296,13 @@ ErrorType Game::StartOfGame()
 {
    // Code to set up your game *********************************************
    // **********************************************************************
+	
+	
+	ship.Initialise(pos);
 
+	//Sound Play System
+	MySoundEngine *pSE = MySoundEngine::GetInstance();
+	shootSound = pSE->LoadWav(L"Laser.wav");
 
 	return SUCCESS;
 }
@@ -321,6 +328,55 @@ ErrorType Game::Update()
 
    // Your code goes here *************************************************
    // *********************************************************************
+   //local velosity variable
+	Vector2D velosity;
+	velosity.setBearing(angle, 4.0f);
+	//We need a Vector2D to specify the location of the image.
+	//We need to get a pointer to the Draw Engine.
+	//And, we need to tell it to draw
+
+
+	//CHANGE TO RENDER FROM SPACESHIP CLASS
+	//MyDrawEngine *pDE = MyDrawEngine::GetInstance();
+	//pDE->DrawAt(pos, image, 1.0f, angle,0.3);
+
+
+	//Does something 
+	ship.Render();
+	ship.Update();
+
+
+
+
+
+	//Moving picture around
+	//need to change the "pos" vector.
+	//getting user input
+	//getting "sample" to check keyboard 
+	MyInputs *pInputs = MyInputs::GetInstance();
+	pInputs->SampleKeyboard();
+
+	//Keyboard inputs for direction
+	if (pInputs->KeyPressed(DIK_W)) {
+		pos = pos + velosity;
+	}
+	if (pInputs->KeyPressed(DIK_D)) {
+		angle = angle + 0.1;
+	}
+	if (pInputs->KeyPressed(DIK_S)) {
+		pos = pos - velosity;
+	}
+	if (pInputs->KeyPressed(DIK_A)) {
+		angle = angle - 0.1;
+	}
+	if (pInputs->KeyPressed(DIK_SPACE))
+	{
+		//plays shooting sound using the sound engine
+		MySoundEngine *pSE = MySoundEngine::GetInstance();
+		pSE->Play(shootSound);
+	}
+
+
 
 
 

@@ -10,6 +10,8 @@
 #include "windows.h"
 #include "mydrawengine.h"
 #include "gametimer.h"
+#include "mysoundengine.h"
+#include "SpaceShip.h"
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
@@ -25,6 +27,11 @@
 class Game
 {
 private:
+	SpaceShip ship;
+	float angle;
+	Vector2D pos;
+	//PictureIndex image;
+	SoundIndex shootSound;
 	enum GameState{MENU, PAUSED, RUNNING, GAMEOVER};
 	GameState m_currentState;      // Current state of the game 
                                   // Menu = start menu
