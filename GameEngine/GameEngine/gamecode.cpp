@@ -299,6 +299,7 @@ ErrorType Game::StartOfGame()
 	
 	//DOESNT DO ANYTHING CURRENTLY 
 	//GET CHANGED
+	Vector2D pos(600, 600);
 	ship.Initialise(pos);
 
 	//Sound Play System
@@ -335,12 +336,11 @@ ErrorType Game::Update()
    // Your code goes here *************************************************
    // *********************************************************************
    //local velosity variable
-	Vector2D velosity;
-	velosity.setBearing(angle, 4.0f);
-	//We need a Vector2D to specify the location of the image.
-	//We need to get a pointer to the Draw Engine.
-	//And, we need to tell it to draw
 
+
+
+	//Vector2D velosity;
+	//velosity.setBearing(angle, 4.0f);
 
 	//CHANGE TO RENDER FROM SPACESHIP CLASS
 	//MyDrawEngine *pDE = MyDrawEngine::GetInstance();

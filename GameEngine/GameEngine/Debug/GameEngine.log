@@ -1,4 +1,5 @@
-﻿  SpaceShip.cpp
-e:\gameengine\gameengine\spaceship.cpp(26): warning C4305: 'argument': truncation from 'double' to 'float'
+﻿  gamecode.cpp
+  SpaceShip.cpp
+  Generating Code...
   GameEngine.vcxproj -> E:\GameEngine\Debug\GameEngine.exe
   GameEngine.vcxproj -> E:\GameEngine\Debug\GameEngine.pdb (Full PDB)

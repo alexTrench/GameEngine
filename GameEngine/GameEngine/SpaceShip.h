@@ -22,7 +22,7 @@ public:
 	SpaceShip(GameTimer *theTimer);
 
 	//member functions
-	void Initialise(Vector2D pos, float direction);
+	void Initialise(Vector2D pos);
 	void Render();
 	void Update(GameTimer frameRate);
 	void health();

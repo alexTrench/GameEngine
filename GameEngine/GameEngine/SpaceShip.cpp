@@ -23,21 +23,20 @@ void SpaceShip::Render()
 	if (SpaceShip::active)
 	{
 		MyDrawEngine *pDE = MyDrawEngine::GetInstance();
-		pDE->DrawAt(position, image, 1.0f, direction, 0.3);
+		image = pDE->LoadPicture(L"spaceship.bmp");
+		pDE->DrawAt(position, image);
 	}
 
 }
 
-void SpaceShip::Initialise(Vector2D pos, float direction)
+void SpaceShip::Initialise(Vector2D pos)
 {
 	//set active 
 	active = true;
 	//set the spaceships angle.
 	//velocity.setBearing(200, 2.0f);
 	//draw the ship to the screen
-	MyDrawEngine *pDE = MyDrawEngine::GetInstance();
-	image = pDE->LoadPicture(L"spaceship.bmp");
-
+	
 
 }
 
@@ -49,12 +48,12 @@ void SpaceShip::Update(GameTimer frameRate)
 	if (pinputs->KeyPressed(DIK_RIGHT))
 	{
 		Vector2D acceleration(30, 0);
-		velocity = velocity + acceleration;
+		position = position + acceleration;
 	}
 	if (pinputs->KeyPressed(DIK_LEFT))
 	{
 		Vector2D acceleration(-30, 0);
-		velocity = velocity + acceleration;
+		position = position + acceleration;
 	}
 
 
