@@ -297,7 +297,8 @@ ErrorType Game::StartOfGame()
    // Code to set up your game *********************************************
    // **********************************************************************
 	
-	
+	//DOESNT DO ANYTHING CURRENTLY 
+	//GET CHANGED
 	ship.Initialise(pos);
 
 	//Sound Play System
@@ -314,6 +315,11 @@ ErrorType Game::StartOfGame()
 // Gameplay programmer will develop this to create an actual game
 ErrorType Game::Update()
 {
+
+	//reads the framerate
+	theTimer.mark();
+	theTimer.mdFrameTime;
+
 	// Check for entry to pause menu
 	static bool escapepressed = true;
 	if(KEYPRESSED(VK_ESCAPE))
@@ -325,7 +331,7 @@ ErrorType Game::Update()
 	else
 		escapepressed=false;
 
-
+		
    // Your code goes here *************************************************
    // *********************************************************************
    //local velosity variable
@@ -343,44 +349,7 @@ ErrorType Game::Update()
 
 	//Does something 
 	ship.Render();
-	ship.Update();
-
-
-
-
-
-	//Moving picture around
-	//need to change the "pos" vector.
-	//getting user input
-	//getting "sample" to check keyboard 
-	MyInputs *pInputs = MyInputs::GetInstance();
-	pInputs->SampleKeyboard();
-
-	//Keyboard inputs for direction
-	if (pInputs->KeyPressed(DIK_W)) {
-		pos = pos + velosity;
-	}
-	if (pInputs->KeyPressed(DIK_D)) {
-		angle = angle + 0.1;
-	}
-	if (pInputs->KeyPressed(DIK_S)) {
-		pos = pos - velosity;
-	}
-	if (pInputs->KeyPressed(DIK_A)) {
-		angle = angle - 0.1;
-	}
-	if (pInputs->KeyPressed(DIK_SPACE))
-	{
-		//plays shooting sound using the sound engine
-		MySoundEngine *pSE = MySoundEngine::GetInstance();
-		pSE->Play(shootSound);
-	}
-
-
-
-
-
-
+	ship.Update(theTimer);
 
 
    // *********************************************************************

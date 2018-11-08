@@ -45,6 +45,10 @@ private:
 	~Game();                       // Destructor
 	Game(Game& other);             // Copy constructor disabled
 
+protected:
+	GameTimer theTimer;
+
+
 public:
 	static Game instance;          // Singleton instance
 

@@ -1,7 +1,4 @@
-﻿  wincode.cpp
-  gamecode.cpp
-e:\gameengine\gameengine\gamecode.cpp(364): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-e:\gameengine\gameengine\gamecode.cpp(370): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
+﻿  SpaceShip.cpp
+e:\gameengine\gameengine\spaceship.cpp(26): warning C4305: 'argument': truncation from 'double' to 'float'
   GameEngine.vcxproj -> E:\GameEngine\Debug\GameEngine.exe
   GameEngine.vcxproj -> E:\GameEngine\Debug\GameEngine.pdb (Full PDB)

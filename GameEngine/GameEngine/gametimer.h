@@ -16,7 +16,7 @@ private:
 	LARGE_INTEGER freq;		// Stores the frequency of the performance counter ("ticks" per second)
 	LARGE_INTEGER last;		// Stores the time of the last mark time (in ticks)
 	double mdMinimumFrameTime;	// The minumim frame time that mark() will allow
-				
+protected:
 
 public:
 	double mdFrameTime;		// The duration between the last two uses of the mark() function in seconds
