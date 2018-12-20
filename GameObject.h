@@ -1,26 +1,24 @@
+#pragma once
+
 #include "mydrawengine.h"
 #include "vector2D.h"
 #include "mysoundengine.h"
 #include "gametimer.h"
 #include <string>
 
-#pragma once
 class GameObject
 {
 private:
-	PictureIndex image;
 	SoundIndex shootSound;
 protected:
+	PictureIndex image;
 	Vector2D position;
 	float direction;
 	bool active;
 
-	
-	std::string LoadImage(std::string FileName);
-public:
-	
-	void Render();
+
+public:	
+	virtual void Render() = 0;
 	virtual void Update(float FrameRate) = 0;
-	
 };
 

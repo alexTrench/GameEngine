@@ -1,18 +1,5 @@
 // GameCode.cpp		
-
-
 #include "gamecode.h"
-#include "mydrawengine.h"
-#include "mysoundengine.h"
-#include "myinputs.h"
-#include <time.h>
-#include "gametimer.h"
-#include "errorlogger.h"
-#include <math.h>
-#include "shapes.h"
-#include "GameObject.h"
-#include "SpaceShip.h"
-
 
 Game::Game()
 {
@@ -295,21 +282,32 @@ ErrorType Game::MainMenu()
 // Use this to initialise the core game
 ErrorType Game::StartOfGame()
 {
-   // Code to set up your game *********************************************
-   // **********************************************************************
-	
+	// Code to set up your game *********************************************
+	// **********************************************************************
+
+	//safe but slow way it works
+	Vector2D posRock(200, 700);
+	//at the moment it just spawns a rock in a random place on the map
+
+	//makes ten rocks appear on the map in random places
+	//finds out the lenght of the rock array and makes sure not to produce
+	//more rocks than is in the array
+	for(int i = 0; i < (sizeof(Rock)/sizeof(*Rock)); i++)
+	{
+		Rock[i].Initialise(Vector2D(rand() % 8000 - 4000, rand() % 8000 - 4000));
+	}
+
+	//works same as above but without a variable
+	//maybe its for the best, probabily not though
+	ship.Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
+
 	//frame counter start function
 	theTimer.mark();
-	
-	//sets start position of the ship
-	//doesnt work
-	Vector2D pos(600, 600);
-	//works kinda 
-	//pos doesnt set goes middle of screen
-	ship.Initialise(pos);
 
+	/*SpaceShip *pTheShip = new SpaceShip();
+	pTheShip->Initialise(pos);*/
 	
-
+	
 	return SUCCESS;
 }
 
@@ -333,19 +331,40 @@ ErrorType Game::Update()
 
    // Your code goes here *************************************************
    // *********************************************************************
-   
-   
 	//should eventually take the game timer as a parater
 	//so that we can cap update to the framerate
 	ship.Update(theTimer.mdFrameTime);
    //this is now taken care of in the game object super class
    //draws it on screen
 	ship.Render();
-	
-
-
+	//same as the ship functions but for the rock object
+	//finds out the lenght of the rock array and makes sure not to produce
+	//more rocks than is in the array
+	for (int i = 0; i < (sizeof(Rock) / sizeof(*Rock)); i++)
+	{
+		Rock[i].Update(theTimer.mdFrameTime);
+		Rock[i].Render();
+	}
    // *********************************************************************
    // *********************************************************************
+
+   /*for the future, pointer of objects list
+
+   void Game::update()
+   {
+	for(int i = 0; pObjectList.size();i++)
+	{
+	pObjectList [i]->Update();
+	}
+	for(int i = 0; i < pObjectList.size();i++)
+	{
+	pObjectList [i]->Render();
+	}
+   }
+
+
+   */
+
 
 	return SUCCESS;
 }
@@ -361,8 +380,6 @@ ErrorType Game::EndOfGame()
    // *********************************************************************
 
 
-
-	
 
 	return SUCCESS;
 }

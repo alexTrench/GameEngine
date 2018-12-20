@@ -11,6 +11,7 @@
 #include "gametimer.h"
 #include "mysoundengine.h"
 #include "SpaceShip.h"
+#include "Rock.h"
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
@@ -26,7 +27,7 @@
 class Game
 {
 private:
-	GameObject *pTheShip;
+	Rock Rock[100];
 	SpaceShip ship;
 	enum GameState{MENU, PAUSED, RUNNING, GAMEOVER};
 	GameState m_currentState;      // Current state of the game 
