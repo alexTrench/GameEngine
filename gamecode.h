@@ -12,6 +12,7 @@
 #include "mysoundengine.h"
 #include "SpaceShip.h"
 #include "Rock.h"
+#include "GameObject.h"
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
@@ -27,8 +28,12 @@
 class Game
 {
 private:
-	Rock Rock[100];
+	std::vector<GameObject*> ObjectList;
+	//GameObject *pTheShip;
+	// GameObject *pTheRocks;
+	//Rock Rock[100];
 	SpaceShip ship;
+	const int NUM_ROCKS = 100;
 	enum GameState{MENU, PAUSED, RUNNING, GAMEOVER};
 	GameState m_currentState;      // Current state of the game 
                                   // Menu = start menu

@@ -7,11 +7,12 @@
 class SpaceShip: public GameObject
 {
 private:
-	//member variables 
-	Vector2D velocity;
+	
 	//used to give created objects to the game
 	//Game &theGame;
 protected:
+	//member variables 
+	Vector2D velocity;
 	Vector2D acceleration;
 	float shootDelayTimer = 1.f;
 	const int SHOOTDELAY = 1;

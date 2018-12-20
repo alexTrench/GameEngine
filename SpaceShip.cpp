@@ -28,6 +28,9 @@ void SpaceShip::Initialise(Vector2D pos)
 	//set active 
 	active = true;
 	GameObject::position = pos;
+
+	MyDrawEngine *pDE = MyDrawEngine::GetInstance();
+	image = pDE->LoadPicture(L"spaceship.bmp");
 	
 }
 
@@ -36,7 +39,6 @@ void SpaceShip::Render()
 	if (active)
 	{
 		MyDrawEngine *pDE = MyDrawEngine::GetInstance();
-		image = pDE->LoadPicture(L"spaceship.bmp");
 		pDE->DrawAt(position, image, 1.0f, direction);
 	}
 
@@ -48,28 +50,29 @@ void SpaceShip::Update(float FrameRate)
 	MyInputs *pinputs = MyInputs::GetInstance();
 	pinputs->SampleKeyboard();
 
-	//THIS NEED TO BE FIXED THE FRAME RATE IN THE FUTURE
-	//NOT SURE WHY IT BREAKS IT
+
 	if (pinputs->KeyPressed(DIK_W))
 	{
 		Vector2D acceleration;
-		acceleration.setBearing(direction, 0.08f);
-		velocity = velocity + acceleration * FrameRate/ 300;
+		acceleration.setBearing(direction, 0.18f);
+		velocity = velocity + acceleration * FrameRate/ 500;
 
 	}
 	if (pinputs->KeyPressed(DIK_S))
 	{
 		Vector2D acceleration;
-		acceleration.setBearing(direction, 0.03f);
-		velocity = velocity - acceleration * FrameRate / 300;
+		acceleration.setBearing(direction, 0.08f);
+		velocity = velocity - acceleration * FrameRate / 500;
 	}
 	if (pinputs->KeyPressed(DIK_D))
 	{
-		this->direction = direction + 0.1;
+		//ErrorLogger::Writeln(L"D Pressed");
+		this->direction = direction + 10;
 	}
 	if (pinputs->KeyPressed(DIK_A))
 	{
-		this->direction = direction - 0.1;
+		//ErrorLogger::Writeln(L"A Pressed");
+		this->direction = direction + 10;
 	}
 	if (pinputs->KeyPressed(DIK_SPACE))
 	{

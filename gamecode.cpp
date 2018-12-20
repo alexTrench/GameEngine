@@ -1,5 +1,9 @@
 // GameCode.cpp		
 #include "gamecode.h"
+#include "SpaceShip.h"
+#include "Rock.h"
+
+
 
 Game::Game()
 {
@@ -284,28 +288,39 @@ ErrorType Game::StartOfGame()
 {
 	// Code to set up your game *********************************************
 	// **********************************************************************
-
+	
 	//safe but slow way it works
-	Vector2D posRock(200, 700);
-	//at the moment it just spawns a rock in a random place on the map
 
+	//at the moment it just spawns a rock in a random place on the map
 	//makes ten rocks appear on the map in random places
 	//finds out the lenght of the rock array and makes sure not to produce
 	//more rocks than is in the array
-	for(int i = 0; i < (sizeof(Rock)/sizeof(*Rock)); i++)
-	{
-		Rock[i].Initialise(Vector2D(rand() % 8000 - 4000, rand() % 8000 - 4000));
-	}
+	//for (int i = 0; i < (sizeof(Rock) / sizeof(*Rock)); i++)
+	//{
+	//	Rock[i].Initialise(Vector2D(rand() % 8000 - 4000, rand() % 8000 - 4000));
+	//}
 
+	//pTheRocks = new Rock();
+	//pTheShip = new SpaceShip();
+	
 	//works same as above but without a variable
 	//maybe its for the best, probabily not though
-	ship.Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
-
+	//pTheShip->SpaceShip::Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000);
+	
+	//ship.Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
+	SpaceShip *pShip = new SpaceShip();
+	pShip->Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
+	ObjectList.emplace_back(pShip);
+	
+	for (int i = 0; i < NUM_ROCKS; i++)
+	{
+		Rock *pRock = new Rock();
+		pRock->Initialise(Vector2D(rand() % 8000 - 4000, rand() % 8000 - 4000));
+		ObjectList.emplace_back(pRock);
+	}
+	
 	//frame counter start function
 	theTimer.mark();
-
-	/*SpaceShip *pTheShip = new SpaceShip();
-	pTheShip->Initialise(pos);*/
 	
 	
 	return SUCCESS;
@@ -333,37 +348,36 @@ ErrorType Game::Update()
    // *********************************************************************
 	//should eventually take the game timer as a parater
 	//so that we can cap update to the framerate
-	ship.Update(theTimer.mdFrameTime);
+   //ship.Update(theTimer.mdFrameTime);
+
    //this is now taken care of in the game object super class
    //draws it on screen
-	ship.Render();
+   //ship.Render();
+
 	//same as the ship functions but for the rock object
 	//finds out the lenght of the rock array and makes sure not to produce
 	//more rocks than is in the array
-	for (int i = 0; i < (sizeof(Rock) / sizeof(*Rock)); i++)
-	{
-		Rock[i].Update(theTimer.mdFrameTime);
-		Rock[i].Render();
-	}
+	//for (int i = 0; i < (sizeof(Rock) / sizeof(*Rock)); i++)
+	//{
+	//	Rock[i].Update(theTimer.mdFrameTime);
+	//	Rock[i].Render();
+	//}
+
    // *********************************************************************
    // *********************************************************************
 
-   /*for the future, pointer of objects list
+   //for the future, pointer of objects list
 
-   void Game::update()
-   {
-	for(int i = 0; pObjectList.size();i++)
+	for(int i = 0; i < ObjectList.size();i++)
 	{
-	pObjectList [i]->Update();
+		ObjectList[i]->Update(theTimer.mdFrameTime);
 	}
-	for(int i = 0; i < pObjectList.size();i++)
+	for(int i = 0; i < ObjectList.size();i++)
 	{
-	pObjectList [i]->Render();
+		ObjectList[i]->Render();
 	}
-   }
-
-
-   */
+	//pTheShip->Update(theTimer.mdFrameTime);
+	//pTheShip->Render();
 
 
 	return SUCCESS;
@@ -378,8 +392,13 @@ ErrorType Game::EndOfGame()
 {
    // Add code here to tidy up ********************************************
    // *********************************************************************
-
-
+	//Deletes all of the pointers to game objects
+	for (int i = 0; i < ObjectList.size(); i++)
+	{
+		delete ObjectList[i];
+		ObjectList[i] = nullptr;
+		
+	}
 
 	return SUCCESS;
 }
