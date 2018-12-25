@@ -5,8 +5,11 @@
 #include "mysoundengine.h"
 #include "gametimer.h"
 #include <string>
+#include "ObjectManager.h"
 
-class GameObject
+
+//class GameObject : public ObjectManager
+class GameObject 
 {
 private:
 	SoundIndex shootSound;

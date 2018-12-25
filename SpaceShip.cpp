@@ -55,33 +55,31 @@ void SpaceShip::Update(float FrameRate)
 	{
 		Vector2D acceleration;
 		acceleration.setBearing(direction, 0.18f);
-		velocity = velocity + acceleration * FrameRate/ 500;
-
+		velocity = velocity + acceleration * FrameRate/ 7000;
 	}
 	if (pinputs->KeyPressed(DIK_S))
 	{
 		Vector2D acceleration;
 		acceleration.setBearing(direction, 0.08f);
-		velocity = velocity - acceleration * FrameRate / 500;
+		velocity = velocity - acceleration * FrameRate / 7000;
 	}
 	if (pinputs->KeyPressed(DIK_D))
 	{
-		//ErrorLogger::Writeln(L"D Pressed");
-		this->direction = direction + 10;
+		ErrorLogger::Writeln(L"D Pressed");
+		this->direction = direction + turnDirection;
 	}
 	if (pinputs->KeyPressed(DIK_A))
 	{
-		//ErrorLogger::Writeln(L"A Pressed");
-		this->direction = direction + 10;
+		ErrorLogger::Writeln(L"A Pressed");
+		this->direction = direction - turnDirection;
 	}
 	if (pinputs->KeyPressed(DIK_SPACE))
 	{
 		//Bullet *pBullet = new Bullet();
 		//pBullet->Initialise();
 	}
-	//these should also all be timsed by FrameRate
-	//but again breaks when used
-	Vector2D friction = -0.02 * velocity;
+	
+	Vector2D friction = -0.02f * velocity;
 	velocity = velocity + friction;
 	position = position + velocity;
 
