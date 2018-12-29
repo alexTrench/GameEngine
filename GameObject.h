@@ -4,12 +4,8 @@
 #include "vector2D.h"
 #include "mysoundengine.h"
 #include "gametimer.h"
-#include <string>
-#include "ObjectManager.h"
 
-
-//class GameObject : public ObjectManager
-class GameObject 
+class GameObject
 {
 private:
 	SoundIndex shootSound;

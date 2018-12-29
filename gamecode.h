@@ -13,6 +13,7 @@
 #include "SpaceShip.h"
 #include "Rock.h"
 #include "GameObject.h"
+#include <list>
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.

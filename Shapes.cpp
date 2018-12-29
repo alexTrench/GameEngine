@@ -1,3 +1,9 @@
+
+// Shapes.cpp
+// Chris Rook
+// Last modified 06/11/2018
+//	Added AngledRectangle2D and Intersects(AngledRectangle2D) method for other classes
+
 #include "Shapes.h"
 #include <limits.h>
 #include <iostream>
@@ -76,30 +82,29 @@ bool Point2D::Intersects(const Segment2D &other) const
 bool Point2D::Intersects(const IShape2D& other) const
 {
 	// Is it a rectangle?
-	const Rectangle2D* pRect = nullptr;
-	pRect = dynamic_cast<const Rectangle2D*> (&other);
-	if(pRect)
-		return pRect->Intersects(*this);
+	if (typeid(other) == typeid(Rectangle2D))
+		return dynamic_cast<const Rectangle2D*> (&other)->Intersects(*this);
 
 	// Is it a circle?
-	const Circle2D* pCirc = nullptr;
-	pCirc = dynamic_cast<const Circle2D*> (&other);
-	if(pCirc)
-		return pCirc->Intersects(*this);
+	if (typeid(other) == typeid(Circle2D))
+		return dynamic_cast<const Circle2D*> (&other)->Intersects(*this);
 
 	// Is it a segment?
-	const Segment2D* pSeg = nullptr;
-	pSeg = dynamic_cast<const Segment2D*> (&other);
-	if(pSeg)
-		return pSeg->Intersects(*this);
+	if (typeid(other) == typeid(Segment2D))
+		return dynamic_cast<const Segment2D*> (&other)->Intersects(*this);
 
 	// Is it a point?
-	const Point2D* ppt = nullptr;
-	ppt = dynamic_cast<const Point2D*> (&other);
-	if(ppt)
-		return ppt->Intersects(*this);
+	if (typeid(other) == typeid(Point2D))
+		return dynamic_cast<const Point2D*> (&other)->Intersects(*this);
 
-	// Undefined shape
+	// Is it a point?
+	if (typeid(other) == typeid(Rectangle2D))
+		return dynamic_cast<const Rectangle2D*> (&other)->Intersects(*this);
+
+	// Is it an angled rectangle?
+	if (typeid(other) == typeid(AngledRectangle2D))
+		return dynamic_cast<const AngledRectangle2D*> (&other)->Intersects(*this);
+
 	return false;
 }
 
@@ -143,6 +148,11 @@ bool Point2D::Intersects(const Rectangle2D &other) const
 		return false;
 	else
 		return true;
+}
+
+bool Point2D::Intersects(const AngledRectangle2D &other) const
+{
+   return other.Intersects(*this);
 }
 
 float Point2D::Distance(const Rectangle2D &other) const
@@ -300,31 +310,32 @@ Vector2D Segment2D::Intersection(const Point2D &other) const
 bool Segment2D::Intersects(const IShape2D& other) const
 {
 	// Is it a rectangle?
-	const Rectangle2D* pRect = nullptr;
-	pRect = dynamic_cast<const Rectangle2D*> (&other);
-	if(pRect)
-		return pRect->Intersects(*this);
+	if (typeid(other) == typeid(Rectangle2D))
+		return dynamic_cast<const Rectangle2D*> (&other)->Intersects(*this);
 
 	// Is it a circle?
-	const Circle2D* pCirc = nullptr;
-	pCirc = dynamic_cast<const Circle2D*> (&other);
-	if(pCirc)
-		return pCirc->Intersects(*this);
+	if (typeid(other) == typeid(Circle2D))
+		return dynamic_cast<const Circle2D*> (&other)->Intersects(*this);
 
 	// Is it a segment?
-	const Segment2D* pSeg = nullptr;
-	pSeg = dynamic_cast<const Segment2D*> (&other);
-	if(pSeg)
-		return pSeg->Intersects(*this);
+	if (typeid(other) == typeid(Segment2D))
+		return dynamic_cast<const Segment2D*> (&other)->Intersects(*this);
 
 	// Is it a point?
-	const Point2D* ppt = nullptr;
-	ppt = dynamic_cast<const Point2D*> (&other);
-	if(ppt)
-		return ppt->Intersects(*this);
+	if (typeid(other) == typeid(Point2D))
+		return dynamic_cast<const Point2D*> (&other)->Intersects(*this);
+
+	// Is it a point?
+	if (typeid(other) == typeid(Rectangle2D))
+		return dynamic_cast<const Rectangle2D*> (&other)->Intersects(*this);
+
+	// Is it an angled rectangle?
+	if (typeid(other) == typeid(AngledRectangle2D))
+		return dynamic_cast<const AngledRectangle2D*> (&other)->Intersects(*this);
 
 	// Undefined shape
 	return false;
+
 }
 
 bool Segment2D::Intersects(const Segment2D &other) const
@@ -489,6 +500,11 @@ bool Segment2D::Intersects(const Rectangle2D &other) const
 	}
 	Segment2D clipped = other.Clip(*this);
 	return (clipped.GetLength()>0);
+}
+
+bool Segment2D::Intersects(const AngledRectangle2D &other) const
+{
+   return other.Intersects(*this);
 }
 
 float Segment2D::Distance(const Rectangle2D &other) const
@@ -677,28 +693,28 @@ bool Circle2D::Intersects(const Segment2D &other) const
 bool Circle2D::Intersects(const IShape2D& other) const
 {
 	// Is it a rectangle?
-	const Rectangle2D* pRect = nullptr;
-	pRect = dynamic_cast<const Rectangle2D*> (&other);
-	if(pRect)
-		return pRect->Intersects(*this);
+	if(typeid(other)==typeid(Rectangle2D))
+		return dynamic_cast<const Rectangle2D*> (&other)->Intersects(*this);
 
 	// Is it a circle?
-	const Circle2D* pCirc = nullptr;
-	pCirc = dynamic_cast<const Circle2D*> (&other);
-	if(pCirc)
-		return pCirc->Intersects(*this);
+	if (typeid(other) == typeid(Circle2D))
+		return dynamic_cast<const Circle2D*> (&other)->Intersects(*this);
 
 	// Is it a segment?
-	const Segment2D* pSeg = nullptr;
-	pSeg = dynamic_cast<const Segment2D*> (&other);
-	if(pSeg)
-		return pSeg->Intersects(*this);
+	if (typeid(other) == typeid(Segment2D))
+		return dynamic_cast<const Segment2D*> (&other)->Intersects(*this);
 
 	// Is it a point?
-	const Point2D* ppt = nullptr;
-	ppt = dynamic_cast<const Point2D*> (&other);
-	if(ppt)
-		return ppt->Intersects(*this);
+	if (typeid(other) == typeid(Point2D))
+		return dynamic_cast<const Point2D*> (&other)->Intersects(*this);
+
+	// Is it a point?
+	if (typeid(other) == typeid(Rectangle2D))
+		return dynamic_cast<const Rectangle2D*> (&other)->Intersects(*this);
+
+	// Is it an angled rectangle?
+	if (typeid(other) == typeid(AngledRectangle2D))
+		return dynamic_cast<const AngledRectangle2D*> (&other)->Intersects(*this);
 
 	// Undefined shape
 	return false;
@@ -736,6 +752,11 @@ bool Circle2D::Intersects(const Rectangle2D &other) const
 		return true;
 	else
 		return false;
+}
+
+bool Circle2D::Intersects(const AngledRectangle2D &other) const
+{
+   return other.Intersects(*this);
 }
 
 float Circle2D::Distance(const Rectangle2D &other) const
@@ -808,17 +829,17 @@ void Rectangle2D::PlaceAt(Vector2D bottomLeft, Vector2D topRight)
 
 	if(bottomLeft.YValue<=topRight.YValue)
 	{
-		top = bottomLeft.YValue;
-		bottom = topRight.YValue;
-	}
-	else
-	{
 		bottom = bottomLeft.YValue;
 		top = topRight.YValue;
 	}
+	else
+	{
+		top = bottomLeft.YValue;
+		bottom = topRight.YValue;
+	}
 	
-	mCorner1.set(left, top);
-	mCorner2.set(right, bottom);
+	mCorner1.set(left, bottom);
+	mCorner2.set(right, top);
 }
 
 Vector2D Rectangle2D::GetCorner1() const
@@ -986,31 +1007,36 @@ bool Rectangle2D::Intersects(const Segment2D &other) const
 	return other.Intersects(*this);
 }
 
+bool Rectangle2D::Intersects(const AngledRectangle2D &other) const
+{
+   return other.Intersects(*this);
+}
+
 bool Rectangle2D::Intersects(const IShape2D& other) const
 {
 	// Is it a rectangle?
-	const Rectangle2D* pRect = nullptr;
-	pRect = dynamic_cast<const Rectangle2D*> (&other);
-	if(pRect)
-		return pRect->Intersects(*this);
+	if (typeid(other) == typeid(Rectangle2D))
+		return dynamic_cast<const Rectangle2D*> (&other)->Intersects(*this);
 
 	// Is it a circle?
-	const Circle2D* pCirc = nullptr;
-	pCirc = dynamic_cast<const Circle2D*> (&other);
-	if(pCirc)
-		return pCirc->Intersects(*this);
+	if (typeid(other) == typeid(Circle2D))
+		return dynamic_cast<const Circle2D*> (&other)->Intersects(*this);
 
 	// Is it a segment?
-	const Segment2D* pSeg = nullptr;
-	pSeg = dynamic_cast<const Segment2D*> (&other);
-	if(pSeg)
-		return pSeg->Intersects(*this);
+	if (typeid(other) == typeid(Segment2D))
+		return dynamic_cast<const Segment2D*> (&other)->Intersects(*this);
 
 	// Is it a point?
-	const Point2D* ppt = nullptr;
-	ppt = dynamic_cast<const Point2D*> (&other);
-	if(ppt)
-		return ppt->Intersects(*this);
+	if (typeid(other) == typeid(Point2D))
+		return dynamic_cast<const Point2D*> (&other)->Intersects(*this);
+
+	// Is it a point?
+	if (typeid(other) == typeid(Rectangle2D))
+		return dynamic_cast<const Rectangle2D*> (&other)->Intersects(*this);
+
+	// Is it an angled rectangle?
+	if (typeid(other) == typeid(AngledRectangle2D))
+		return dynamic_cast<const AngledRectangle2D*> (&other)->Intersects(*this);
 
 	// Undefined shape
 	return false;
@@ -1288,4 +1314,250 @@ Vector2D Rectangle2D::CollisionNormal(const Rectangle2D& other) const
 Vector2D Rectangle2D::CollisionNormal(const Segment2D& other) const
 {
 	return CollisionNormal(other.Intersection(*this));
+}
+
+
+// Angled rectangle ***************************************************
+
+AngledRectangle2D::AngledRectangle2D()
+{
+   mWidth = 0;
+   mHeight = 0;
+   mAngle = 0;
+   UpdateTrivialRejector();
+}
+
+
+
+// Constructs an AngledRectangle2D at rotation 0, with the given height
+// and width and centre
+AngledRectangle2D::AngledRectangle2D(Vector2D centre, float height, float width)
+   :mWidth(width), mHeight(height), mCentre(centre)
+{
+   UpdateTrivialRejector();
+   mLocalRectangle.PlaceAt(mHeight / 2, -mWidth / 2, -mHeight / 2, mWidth / 2);
+}
+
+
+void AngledRectangle2D::UpdateTrivialRejector()
+{
+   mTrivialRejector.PlaceAt(mCentre, sqrt(mWidth*mWidth/4 + mHeight*mHeight/4));
+}
+
+// Sets the height and width of the angled rectangle
+void AngledRectangle2D::SetDimensions(float height, float width)
+{
+   mWidth = width;
+   mHeight = height;
+   UpdateTrivialRejector();
+   mLocalRectangle.PlaceAt(mHeight / 2, -mWidth / 2, -mHeight / 2, mWidth / 2);
+}
+
+// Sets the centre of the angled rectangle
+void AngledRectangle2D::SetCentre(Vector2D centre)
+{
+   mCentre = centre;
+   UpdateTrivialRejector();
+}
+
+// Sets the angle of the rectangle
+void AngledRectangle2D::SetAngle(float angle)
+{
+   mAngle = angle;
+}
+
+// Returns the current angle
+float AngledRectangle2D::GetAngle() const
+{
+   return mAngle;
+}
+
+// Returns the current centre
+Vector2D AngledRectangle2D::GetCentre() const
+{
+   return mCentre;
+}
+
+// Returns the current height
+float AngledRectangle2D::GetHeight() const
+{
+   return mHeight;
+}
+
+// Returns the current width
+float AngledRectangle2D::GetWidth() const
+{
+   return mHeight;
+}
+
+Vector2D AngledRectangle2D::TransformToLocal(Vector2D v) const
+{
+   v = v - mCentre;
+   v = v.rotatedBy(-mAngle);
+   return v;
+}
+
+Vector2D AngledRectangle2D::TranformBackFromLocal(Vector2D v) const
+{
+
+   v = v.rotatedBy(mAngle);
+   v = v + mCentre;
+   return v;
+}
+
+
+// Returns true if the AngledRectangle intersects with other shapes
+bool AngledRectangle2D::Intersects(const IShape2D& other) const
+{
+	// Is it a rectangle?
+	if (typeid(other) == typeid(Rectangle2D))
+		return dynamic_cast<const Rectangle2D*> (&other)->Intersects(*this);
+
+	// Is it a circle?
+	if (typeid(other) == typeid(Circle2D))
+		return dynamic_cast<const Circle2D*> (&other)->Intersects(*this);
+
+	// Is it a segment?
+	if (typeid(other) == typeid(Segment2D))
+		return dynamic_cast<const Segment2D*> (&other)->Intersects(*this);
+
+	// Is it a point?
+	if (typeid(other) == typeid(Point2D))
+		return dynamic_cast<const Point2D*> (&other)->Intersects(*this);
+
+	// Is it a point?
+	if (typeid(other) == typeid(Rectangle2D))
+		return dynamic_cast<const Rectangle2D*> (&other)->Intersects(*this);
+
+	// Is it an angled rectangle?
+	if (typeid(other) == typeid(AngledRectangle2D))
+		return dynamic_cast<const AngledRectangle2D*> (&other)->Intersects(*this);
+
+	// Undefined shape
+	return false;
+}
+
+bool AngledRectangle2D::Intersects(const Point2D& other) const
+{
+   if (!other.Intersects(mTrivialRejector))
+   {
+      return false;
+   }
+   else
+   {
+      Vector2D p = TransformToLocal(other.GetPosition());
+      return mLocalRectangle.Intersects(p);
+   }
+}
+
+bool AngledRectangle2D::Intersects(const Circle2D& other) const
+{
+   if (!other.Intersects(mTrivialRejector))
+   {
+      return false;
+   }
+   else
+   {
+      Circle2D c(TransformToLocal(other.mCentre), other.mdRadius);
+      return mLocalRectangle.Intersects(c);
+   }
+}
+
+bool AngledRectangle2D::Intersects(const Segment2D& other) const
+{
+   if (!other.Intersects(mTrivialRejector))
+   {
+      return false;
+   }
+   else
+   {
+      Segment2D s;
+      s.PlaceAt(TransformToLocal(other.mStart), TransformToLocal(other.mEnd));
+      return mLocalRectangle.Intersects(s);
+   }
+}
+
+bool AngledRectangle2D::Intersects(const Rectangle2D& other) const
+{
+   if (!other.Intersects(mTrivialRejector))
+   {
+      return false;
+   }
+   else
+   {
+      // Do your corners intersect it?
+      Vector2D p1(mWidth / 2, mHeight / 2);
+      p1 = p1.rotatedBy(mAngle);
+      if (other.Intersects(mCentre + p1))
+         return true;
+      Vector2D p3 = -p1;
+      if (other.Intersects(mCentre + p3))
+         return true;
+      Vector2D p2(mWidth / 2, -mHeight / 2);
+      p2 = p2.rotatedBy(mAngle);
+      if (other.Intersects(mCentre + p2))
+         return true;
+      Vector2D p4 = -p2;
+      if (other.Intersects(mCentre + p4))
+         return true;
+
+      // Do your segments intersect it?
+      Segment2D s;
+      s.PlaceAt(p1 + mCentre, p2 + mCentre);
+      if (other.Intersects(s))
+         return true;
+      s.PlaceAt(p2 + mCentre, p3 + mCentre);
+      if (other.Intersects(s))
+         return true;
+      s.PlaceAt(p3 + mCentre, p4 + mCentre);
+      if (other.Intersects(s))
+         return true;
+      s.PlaceAt(p4 + mCentre, p1 + mCentre);
+      if (other.Intersects(s))
+         return true;
+      return false;
+   }
+}
+
+bool AngledRectangle2D::Intersects(const AngledRectangle2D& other) const
+{
+   if (!other.Intersects(mTrivialRejector))
+   {
+      return false;
+   }
+   else
+   {
+      // Do your corners intersect it?
+      Vector2D p1(mWidth / 2, mHeight / 2);
+      p1 = p1.rotatedBy(mAngle);
+      if (other.Intersects(mCentre + p1))
+         return true;
+      Vector2D p3 = -p1;
+      if (other.Intersects(mCentre + p3))
+         return true;
+      Vector2D p2(mWidth / 2, -mHeight / 2);
+      p2 = p2.rotatedBy(mAngle);
+      if (other.Intersects(mCentre + p2))
+         return true;
+      Vector2D p4 = -p2;
+      if (other.Intersects(mCentre + p4))
+         return true;
+
+      // Do your segments intersect it?
+      Segment2D s;
+      s.PlaceAt(p1+mCentre, p2 + mCentre);
+      if (other.Intersects(s))
+         return true;
+      s.PlaceAt(p2 + mCentre, p3 + mCentre);
+      if (other.Intersects(s))
+         return true;
+      s.PlaceAt(p3 + mCentre, p4 + mCentre);
+      if (other.Intersects(s))
+         return true;
+      s.PlaceAt(p4 + mCentre, p1 + mCentre);
+      if (other.Intersects(s))
+         return true;
+
+      return false;
+   }
 }

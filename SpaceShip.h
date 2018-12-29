@@ -16,7 +16,7 @@ protected:
 	Vector2D acceleration;
 	float shootDelayTimer = 1.f;
 	const int SHOOTDELAY = 1;
-	float turnDirection = 1.0f;
+	float turnDirection = 3.f;
 public:
 
 	//constructors

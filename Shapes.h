@@ -2,7 +2,8 @@
 // shapes.h
 // Shell engine version 2020
 // Chris Rook
-// Last modified 20/09/2018
+// Last modified 06/11/2018
+//	Added AngledRectangle2D and Intersects(AngledRectangle2D) method for other classes
 
 #include "Vector2D.h"
 #pragma once
@@ -20,6 +21,7 @@ class Point2D;
 class Segment2D;
 class Circle2D;
 class Rectangle2D;
+class AngledRectangle2D;
 
 // Class to manage a 2D point shape
 class Point2D:public IShape2D
@@ -27,6 +29,7 @@ class Point2D:public IShape2D
 	friend Segment2D;
 	friend Circle2D;
 	friend Rectangle2D;
+   friend AngledRectangle2D;
 private:
 	Vector2D mPosition;     // The position of the point
 public:
@@ -88,6 +91,10 @@ public:
 	// but excludes the bottom and right edge
 	bool Intersects(const Rectangle2D &other) const;
 
+   // Returns true if the point is within the angled rectangle
+   // False otherwise
+   bool Intersects(const AngledRectangle2D &other) const;
+
 	// Returns true if the point intersects the specified shape
 	bool Intersects(const IShape2D &other) const;
 
@@ -108,6 +115,7 @@ class Segment2D:public IShape2D
 	friend Point2D;
 	friend Circle2D;
 	friend Rectangle2D;
+   friend AngledRectangle2D;
 private:
 	Vector2D mStart;
 	Vector2D mEnd;
@@ -186,6 +194,10 @@ public:
 	// False otherwise
 	bool Intersects(const Rectangle2D &other) const;
 
+   // Returns true if the segment intersects the angled rectangle
+   // False otherwise
+   bool Intersects(const AngledRectangle2D &other) const;
+
 	// Returns the distance from the Segment to the Rectangle
 	// If they intersect, returns a negative number
 	// Slow function
@@ -243,6 +255,7 @@ class Circle2D:public IShape2D
 	friend Point2D;
 	friend Segment2D;
 	friend Rectangle2D;
+   friend AngledRectangle2D;
 private:
 	Vector2D mCentre;    // Position of the centre
 	float mdRadius;      // Radius
@@ -318,6 +331,10 @@ public:
 	// false otherwise
 	bool Intersects(const Rectangle2D &other) const;
 
+   // Returns true if the circle intersects the angled rectangle
+   // false otherwise
+   bool Intersects(const AngledRectangle2D &other) const;
+
 	// Returns the distance from the edge of the circle
 	// to the rectangle.
 	// Returns a negative number if the circle and
@@ -357,6 +374,7 @@ class Rectangle2D:public IShape2D
 	friend Point2D;
 	friend Segment2D;
 	friend Circle2D;
+   friend AngledRectangle2D;
 private:
 	Vector2D mCorner1;		// Bottom left assuming regular cartesian
 	Vector2D mCorner2;		// Top right assuming regular cartesian
@@ -480,6 +498,10 @@ public:
 	// false otherwise
 	bool Intersects(const Rectangle2D &other) const;
 
+   // Returns true if the rectangles intersect
+   // false otherwise
+   bool Intersects(const AngledRectangle2D &other) const;
+
 	// Returns the distance between the two closest points 
 	// on the two rectangles. Returns zero if the rectangles
 	// overlap
@@ -500,4 +522,61 @@ public:
 
 		// Returns true if the rectangle intersects the specified shape
 	bool Intersects(const IShape2D &other) const;
+};
+
+
+// A shape to manage a rectangle, with a centre, height and width, 
+// rotated to any angle.
+class AngledRectangle2D : public IShape2D
+{
+   friend Point2D;
+   friend Segment2D;
+   friend Circle2D;
+   friend Rectangle2D;
+private:
+   float mHeight;          // Vertical height of the rectangle
+   float mWidth;           // Horizontal width of the rectangle
+   Vector2D mCentre;       // Centre of the rectangle
+   float mAngle;            // Current angle of the rectangle in radians
+   Circle2D mTrivialRejector; // Circle2D that fully encloses the rectangle
+   Rectangle2D mLocalRectangle;
+   void UpdateTrivialRejector();
+   Vector2D TransformToLocal(Vector2D v) const;
+   Vector2D TranformBackFromLocal(Vector2D v) const;
+public:
+   AngledRectangle2D();
+
+   // Constructs an AngledRectangle2D at rotation 0, with the given height
+   // and width and centre
+   AngledRectangle2D(Vector2D centre, float height, float width);
+
+   // Sets the height and width of the angled rectangle
+   void SetDimensions( float height, float width);
+
+   // Sets the centre of the angled rectangle
+   void SetCentre(Vector2D centre);
+
+   // Sets the angle of the retangle
+   void SetAngle(float angle);
+
+   // Returns the current angle
+   float GetAngle() const;
+
+   // Returns the current centre
+   Vector2D GetCentre() const;
+
+   // Returns the current height
+   float GetHeight() const;
+
+   // Returns the current width
+   float GetWidth() const;
+
+   // Returns true if the AngledRectangle intersects with other shapes
+   bool Intersects(const IShape2D& other) const;
+   bool Intersects(const Point2D& other) const;
+   bool Intersects(const Circle2D& other) const;
+   bool Intersects(const Segment2D& other) const;
+   bool Intersects(const Rectangle2D& other) const;
+   bool Intersects(const AngledRectangle2D& other) const;
+
 };

@@ -54,24 +54,28 @@ void SpaceShip::Update(float FrameRate)
 	if (pinputs->KeyPressed(DIK_W))
 	{
 		Vector2D acceleration;
-		acceleration.setBearing(direction, 0.18f);
-		velocity = velocity + acceleration * FrameRate/ 7000;
+		acceleration.setBearing(direction, 0.16f);
+		velocity = velocity + acceleration * FrameRate/ 5000;
 	}
 	if (pinputs->KeyPressed(DIK_S))
 	{
 		Vector2D acceleration;
-		acceleration.setBearing(direction, 0.08f);
-		velocity = velocity - acceleration * FrameRate / 7000;
+		acceleration.setBearing(direction, 0.16f);
+		velocity = velocity - acceleration * FrameRate / 5000;
 	}
+	//note to self -
+	//Dont FIDDLE WITH THIS SHIT
+	//WORKS FINE RIGHT NOW 
+	//IF IT BREAKS FROM NOW ON ITS NOT THIS CODES FAULT
 	if (pinputs->KeyPressed(DIK_D))
 	{
-		ErrorLogger::Writeln(L"D Pressed");
-		this->direction = direction + turnDirection;
+		//ErrorLogger::Writeln(L"D Pressed");
+		this->direction = direction + (turnDirection * (FrameRate / 10.f));
 	}
 	if (pinputs->KeyPressed(DIK_A))
 	{
-		ErrorLogger::Writeln(L"A Pressed");
-		this->direction = direction - turnDirection;
+		//ErrorLogger::Writeln(L"A Pressed");
+		this->direction = direction - (turnDirection * (FrameRate / 10.f));
 	}
 	if (pinputs->KeyPressed(DIK_SPACE))
 	{
