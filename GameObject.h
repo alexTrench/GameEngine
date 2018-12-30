@@ -15,7 +15,6 @@ protected:
 	float direction;
 	bool active;
 
-
 public:	
 	virtual void Render() = 0;
 	virtual void Update(float FrameRate) = 0;

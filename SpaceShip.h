@@ -17,6 +17,7 @@ protected:
 	float shootDelayTimer = 1.f;
 	const int SHOOTDELAY = 1;
 	float turnDirection = 3.f;
+
 public:
 
 	//constructors

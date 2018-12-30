@@ -306,17 +306,19 @@ ErrorType Game::StartOfGame()
 	//works same as above but without a variable
 	//maybe its for the best, probabily not though
 	//pTheShip->SpaceShip::Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000);
-	
 	//ship.Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
 	SpaceShip *pShip = new SpaceShip();
-	pShip->Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
-	ObjectList.emplace_back(pShip);
+	GameManager.AddToList(pShip);
+    pShip->Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
+	//ObjectList.emplace_back(pShip);
 	
 	for (int i = 0; i < NUM_ROCKS; i++)
 	{
 		Rock *pRock = new Rock();
+		GameManager.AddToList(pRock);
 		pRock->Initialise(Vector2D(rand() % 8000 - 4000, rand() % 8000 - 4000));
-		ObjectList.emplace_back(pRock);
+		/*pRock->Initialise(Vector2D(rand() % 8000 - 4000, rand() % 8000 - 4000));
+		ObjectList.emplace_back(pRock);*/
 	}
 	
 	//frame counter start function
@@ -346,39 +348,20 @@ ErrorType Game::Update()
 
    // Your code goes here *************************************************
    // *********************************************************************
-	//should eventually take the game timer as a parater
-	//so that we can cap update to the framerate
-   //ship.Update(theTimer.mdFrameTime);
-
-   //this is now taken care of in the game object super class
-   //draws it on screen
-   //ship.Render();
-
-	//same as the ship functions but for the rock object
-	//finds out the lenght of the rock array and makes sure not to produce
-	//more rocks than is in the array
-	//for (int i = 0; i < (sizeof(Rock) / sizeof(*Rock)); i++)
-	//{
-	//	Rock[i].Update(theTimer.mdFrameTime);
-	//	Rock[i].Render();
-	//}
-
-   // *********************************************************************
-   // *********************************************************************
 
    //for the future, pointer of objects list
-
-	for(int i = 0; i < ObjectList.size();i++)
+	/*for(int i = 0; i < ObjectList.size();i++)
 	{
 		ObjectList[i]->Update(theTimer.mdFrameTime);
 	}
-	for(int i = 0; i < ObjectList.size();i++)
+	for (int i = 0; i < ObjectList.size(); i++)
 	{
 		ObjectList[i]->Render();
-	}
-	//pTheShip->Update(theTimer.mdFrameTime);
-	//pTheShip->Render();
+	}*/
 
+
+	GameManager.UpdateAll(theTimer);
+	GameManager.RenderAll();
 
 	return SUCCESS;
 }
@@ -393,12 +376,7 @@ ErrorType Game::EndOfGame()
    // Add code here to tidy up ********************************************
    // *********************************************************************
 	//Deletes all of the pointers to game objects
-	for (int i = 0; i < ObjectList.size(); i++)
-	{
-		delete ObjectList[i];
-		ObjectList[i] = nullptr;
-		
-	}
+	GameManager.CleanUp();
 
 	return SUCCESS;
 }

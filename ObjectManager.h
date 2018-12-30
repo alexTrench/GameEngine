@@ -17,5 +17,6 @@ public:
 	//Updating and rendering everything in list
 	void UpdateAll(GameTimer &theTimer);
 	void RenderAll();
-	void CheckAllCollision();
+	void CleanUp();
+	//void CheckAllCollision();
 };

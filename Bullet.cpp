@@ -2,6 +2,7 @@
 
 Bullet::Bullet()
 {
+	ErrorLogger::Writeln(L"Calling Constructor for Bullet");
 	bool active = true;
 }
 
@@ -18,6 +19,7 @@ void Bullet::Initialise(Vector2D startPosition, float startVelocity)
 
 void Bullet::Update(float FrameRate)
 {
+
 
 }
 

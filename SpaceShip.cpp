@@ -1,4 +1,5 @@
 #include "SpaceShip.h"
+#include "Bullet.h"
 
 //constructor
 //constructer that sets a reference to the game
@@ -87,17 +88,16 @@ void SpaceShip::Update(float FrameRate)
 	velocity = velocity + friction;
 	position = position + velocity;
 
-	//firing bullets section
-	//CAUSES MEMORY LEAKS ATM FIX 
-	/*
+
 	shootDelayTimer = shootDelayTimer - FrameRate;
 	if (pinputs->NewKeyPressed(DIK_SPACE) && shootDelayTimer <= 0)
 	{
 		Bullet *pBullet = new Bullet();
 		pBullet->Initialise(position, direction);
-		shootDelayTimer - SHOOTDELAY;
+		//shootDelayTimer =- SHOOTDELAY;
+		ErrorLogger::Writeln(L"Pressing Bullet");
 	}
-	*/
+	
 }
 
 //void SpaceShip::shoot()

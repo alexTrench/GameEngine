@@ -36,7 +36,19 @@ void ObjectManager::RenderAll()
 	}
 }
 
-void ObjectManager::CheckAllCollision()
+//Resets and deletes all the pointers to memory after the game ends
+//Doesnt really help with memory leaks but cleans up after game anyway
+//small game with few hundred small objects so shouldnt be a problem
+void ObjectManager::CleanUp()
 {
-
+	for (int i = 0; i < pObjectList.size(); i++)
+	{
+		delete pObjectList[i];
+		pObjectList[i] = nullptr;
+	}
 }
+
+//void ObjectManager::CheckAllCollision()
+//{
+//
+//}

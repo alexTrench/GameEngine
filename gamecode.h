@@ -14,6 +14,7 @@
 #include "Rock.h"
 #include "GameObject.h"
 #include <list>
+#include "ObjectManager.h"
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
@@ -30,10 +31,11 @@ class Game
 {
 private:
 	std::vector<GameObject*> ObjectList;
+	ObjectManager GameManager;
 	//GameObject *pTheShip;
 	// GameObject *pTheRocks;
-	//Rock Rock[100];
-	SpaceShip ship;
+	//Rock rock;
+	//SpaceShip ship;
 	const int NUM_ROCKS = 100;
 	enum GameState{MENU, PAUSED, RUNNING, GAMEOVER};
 	GameState m_currentState;      // Current state of the game 
@@ -50,8 +52,6 @@ private:
 
 protected:
 	GameTimer theTimer;
-
-
 public:
 	static Game instance;          // Singleton instance
 
