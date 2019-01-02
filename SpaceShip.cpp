@@ -18,12 +18,6 @@ SpaceShip::SpaceShip()
 
 }
 
-SpaceShip::SpaceShip(GameTimer *theTimer)
-{
-
-
-}
-
 void SpaceShip::Initialise(Vector2D pos)
 {
 	//set active 
@@ -92,16 +86,12 @@ void SpaceShip::Update(float FrameRate)
 	shootDelayTimer = shootDelayTimer - FrameRate;
 	if (pinputs->NewKeyPressed(DIK_SPACE) && shootDelayTimer <= 0)
 	{
-		Bullet *pBullet = new Bullet();
-		pBullet->Initialise(position, direction);
-		//shootDelayTimer =- SHOOTDELAY;
 		ErrorLogger::Writeln(L"Pressing Bullet");
+		Bullet *pBullet = new Bullet();
+		pBullet->Initialise(position, velocity);
+		theGameManager.AddToList(pBullet);
+		shootDelayTimer = SHOOTDELAY;
+	
 	}
 	
 }
-
-//void SpaceShip::shoot()
-//{
-//	MySoundEngine* pSE = MySoundEngine::GetInstance();
-//	pSE->Play(shootSound);
-//}

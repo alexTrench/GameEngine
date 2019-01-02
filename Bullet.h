@@ -10,7 +10,7 @@ public:
 	Bullet();
 	~Bullet();
 
-	void Initialise(Vector2D startPosition, float startVelocity);
+	void Initialise(Vector2D startPosition, Vector2D startVelocity);
 	void Update(float FrameRate);
 	void Render();
 

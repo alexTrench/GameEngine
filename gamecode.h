@@ -12,7 +12,6 @@
 #include "mysoundengine.h"
 #include "SpaceShip.h"
 #include "Rock.h"
-#include "GameObject.h"
 #include <list>
 #include "ObjectManager.h"
 
@@ -30,7 +29,6 @@
 class Game
 {
 private:
-	std::vector<GameObject*> ObjectList;
 	ObjectManager GameManager;
 	//GameObject *pTheShip;
 	// GameObject *pTheRocks;

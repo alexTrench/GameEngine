@@ -1,4 +1,5 @@
 #include "ObjectManager.h"
+#include <iostream>
 
 ObjectManager::ObjectManager()
 {
@@ -13,6 +14,7 @@ ObjectManager::~ObjectManager()
 void ObjectManager::AddToList(GameObject* pNextObject)
 {
 	pObjectList.push_back(pNextObject);
+	std::cout << "Adding item to list" << std::endl;
 }
 
 //Updating everything in list

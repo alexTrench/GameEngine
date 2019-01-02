@@ -307,9 +307,9 @@ ErrorType Game::StartOfGame()
 	//maybe its for the best, probabily not though
 	//pTheShip->SpaceShip::Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000);
 	//ship.Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
-	SpaceShip *pShip = new SpaceShip();
-	GameManager.AddToList(pShip);
+	SpaceShip *pShip = new SpaceShip(GameManager);
     pShip->Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
+	GameManager.AddToList(pShip);
 	//ObjectList.emplace_back(pShip);
 	
 	for (int i = 0; i < NUM_ROCKS; i++)
@@ -317,8 +317,7 @@ ErrorType Game::StartOfGame()
 		Rock *pRock = new Rock();
 		GameManager.AddToList(pRock);
 		pRock->Initialise(Vector2D(rand() % 8000 - 4000, rand() % 8000 - 4000));
-		/*pRock->Initialise(Vector2D(rand() % 8000 - 4000, rand() % 8000 - 4000));
-		ObjectList.emplace_back(pRock);*/
+		
 	}
 	
 	//frame counter start function
@@ -348,18 +347,6 @@ ErrorType Game::Update()
 
    // Your code goes here *************************************************
    // *********************************************************************
-
-   //for the future, pointer of objects list
-	/*for(int i = 0; i < ObjectList.size();i++)
-	{
-		ObjectList[i]->Update(theTimer.mdFrameTime);
-	}
-	for (int i = 0; i < ObjectList.size(); i++)
-	{
-		ObjectList[i]->Render();
-	}*/
-
-
 	GameManager.UpdateAll(theTimer);
 	GameManager.RenderAll();
 
