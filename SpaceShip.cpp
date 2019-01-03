@@ -49,47 +49,37 @@ void SpaceShip::Update(float FrameRate)
 	if (pinputs->KeyPressed(DIK_W))
 	{
 		Vector2D acceleration;
-		acceleration.setBearing(direction, 0.16f);
+		acceleration.setBearing(direction, 0.1f);
 		velocity = velocity + acceleration * FrameRate/ 5000;
 	}
 	if (pinputs->KeyPressed(DIK_S))
 	{
 		Vector2D acceleration;
-		acceleration.setBearing(direction, 0.16f);
+		acceleration.setBearing(direction, 0.02f);
 		velocity = velocity - acceleration * FrameRate / 5000;
 	}
-	//note to self -
-	//Dont FIDDLE WITH THIS SHIT
-	//WORKS FINE RIGHT NOW 
-	//IF IT BREAKS FROM NOW ON ITS NOT THIS CODES FAULT
 	if (pinputs->KeyPressed(DIK_D))
 	{
 		//ErrorLogger::Writeln(L"D Pressed");
-		this->direction = direction + (turnDirection * (FrameRate / 10.f));
+		this->direction = direction + (turnDirection /** (FrameRate / 5.f)*/);
 	}
 	if (pinputs->KeyPressed(DIK_A))
 	{
 		//ErrorLogger::Writeln(L"A Pressed");
-		this->direction = direction - (turnDirection * (FrameRate / 10.f));
+		this->direction = direction - (turnDirection/* * (FrameRate / 5.f)*/);
 	}
-	if (pinputs->KeyPressed(DIK_SPACE))
-	{
-		//Bullet *pBullet = new Bullet();
-		//pBullet->Initialise();
-	}
-	
 	Vector2D friction = -0.02f * velocity;
 	velocity = velocity + friction;
 	position = position + velocity;
 
 
-	shootDelayTimer = shootDelayTimer - FrameRate;
-	if (pinputs->NewKeyPressed(DIK_SPACE) && shootDelayTimer <= 0)
+	//shootDelayTimer = shootDelayTimer - FrameRate;
+	if (pinputs->NewKeyPressed(DIK_SPACE)/* && shootDelayTimer <= 0*/)
 	{
 		ErrorLogger::Writeln(L"Pressing Bullet");
 		Bullet *pBullet = new Bullet();
 		pBullet->Initialise(position, velocity);
-		theGameManager.AddToList(pBullet);
+		GameManager.AddToList(pBullet);
 		shootDelayTimer = SHOOTDELAY;
 	
 	}

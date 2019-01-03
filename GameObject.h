@@ -14,10 +14,12 @@ protected:
 	Vector2D position;
 	float direction;
 	bool active;
-	
-public:	
+
+public:
 	virtual void Render() = 0;
 	virtual void Update(float FrameRate) = 0;
+	virtual ~GameObject() {};
+	bool IsActive() { if (GameObject::active = true) return true; else return false; };
 
 };
 

@@ -14,7 +14,7 @@ ObjectManager::~ObjectManager()
 void ObjectManager::AddToList(GameObject* pNextObject)
 {
 	pObjectList.push_back(pNextObject);
-	std::cout << "Adding item to list" << std::endl;
+	ErrorLogger::Writeln(L"Adding To List");
 }
 
 //Updating everything in list
@@ -43,14 +43,34 @@ void ObjectManager::RenderAll()
 //small game with few hundred small objects so shouldnt be a problem
 void ObjectManager::CleanUp()
 {
-	for (int i = 0; i < pObjectList.size(); i++)
+	/*for (int i = 0; i < pObjectList.size(); i++)
 	{
 		delete pObjectList[i];
 		pObjectList[i] = nullptr;
+	}*/
+
+	for (GameObject *pNextObject : pObjectList)
+	{
+		if (pNextObject->IsActive() == false)
+		{
+			delete pNextObject;
+			pNextObject = nullptr;
+		}
 	}
 }
 
-//void ObjectManager::CheckAllCollision()
-//{
-//
-//}
+void ObjectManager::CheckAllCollision()
+{
+	//for (GameObject* &nextObjectPointer : pObjectList) // The & is critical. Check.
+	//{
+	//if (nextObjectPointer->IsActive() == false)
+	//	{
+	//		delete nextObjectPointer;
+	//		nextObjectPointer = nullptr; // Always do this when deleting! 
+	//	}
+	//}
+	// This is now easier
+	//auto it = std::remove(pObjectList.begin(), pObjectList.end(), nullptr);
+	//pObjectList.erase(it, objectList.end());
+}
+

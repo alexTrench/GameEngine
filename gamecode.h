@@ -30,10 +30,6 @@ class Game
 {
 private:
 	ObjectManager GameManager;
-	//GameObject *pTheShip;
-	// GameObject *pTheRocks;
-	//Rock rock;
-	//SpaceShip ship;
 	const int NUM_ROCKS = 100;
 	enum GameState{MENU, PAUSED, RUNNING, GAMEOVER};
 	GameState m_currentState;      // Current state of the game 

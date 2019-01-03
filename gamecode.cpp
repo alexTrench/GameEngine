@@ -310,15 +310,14 @@ ErrorType Game::StartOfGame()
 	SpaceShip *pShip = new SpaceShip(GameManager);
     pShip->Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
 	GameManager.AddToList(pShip);
-	//ObjectList.emplace_back(pShip);
 	
-	for (int i = 0; i < NUM_ROCKS; i++)
+	/*for (int i = 0; i < NUM_ROCKS; i++)
 	{
 		Rock *pRock = new Rock();
 		GameManager.AddToList(pRock);
 		pRock->Initialise(Vector2D(rand() % 8000 - 4000, rand() % 8000 - 4000));
 		
-	}
+	}*/
 	
 	//frame counter start function
 	theTimer.mark();

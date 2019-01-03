@@ -1,13 +1,13 @@
 #pragma once
 
 #include "GameObject.h"
-#include <vector>
+#include <list>
 
 class ObjectManager
 {
 protected:
 	//cotains a list of all current game objects
-	std::vector<GameObject*> pObjectList;
+	std::list<GameObject*> pObjectList;
 public:
 	ObjectManager();
 	~ObjectManager();
@@ -18,5 +18,5 @@ public:
 	void UpdateAll(GameTimer &theTimer);
 	void RenderAll();
 	void CleanUp();
-	//void CheckAllCollision();
+	void CheckAllCollision();
 };
