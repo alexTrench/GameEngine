@@ -4,6 +4,8 @@
 class Bullet: public GameObject
 {
 private:
+	Circle2D BulletCollision;
+	Vector2D velocity;
 protected:
 
 public:
@@ -13,6 +15,8 @@ public:
 	void Initialise(Vector2D startPosition, Vector2D startVelocity);
 	void Update(float FrameRate);
 	void Render();
-
+	Circle2D* GetShape() override;
+	void HandleCollision(GameObject *pOther)override;
+	int GetObjectID();
 };
 

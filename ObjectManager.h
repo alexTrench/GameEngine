@@ -5,9 +5,14 @@
 
 class ObjectManager
 {
+private:
 protected:
 	//cotains a list of all current game objects
 	std::list<GameObject*> pObjectList;
+	//two iterators used to handle collisons 
+	//in object manager.handle collisions
+	std::list<GameObject*>::iterator it1;
+	std::list<GameObject*>::iterator it2;
 public:
 	ObjectManager();
 	~ObjectManager();
@@ -17,6 +22,7 @@ public:
 	//Updating and rendering everything in list
 	void UpdateAll(GameTimer &theTimer);
 	void RenderAll();
+	void EndGameCleanUp();
 	void CleanUp();
 	void CheckAllCollision();
 };

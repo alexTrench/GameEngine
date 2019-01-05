@@ -289,40 +289,22 @@ ErrorType Game::StartOfGame()
 	// Code to set up your game *********************************************
 	// **********************************************************************
 	
-	//safe but slow way it works
-
-	//at the moment it just spawns a rock in a random place on the map
-	//makes ten rocks appear on the map in random places
-	//finds out the lenght of the rock array and makes sure not to produce
-	//more rocks than is in the array
-	//for (int i = 0; i < (sizeof(Rock) / sizeof(*Rock)); i++)
-	//{
-	//	Rock[i].Initialise(Vector2D(rand() % 8000 - 4000, rand() % 8000 - 4000));
-	//}
-
-	//pTheRocks = new Rock();
-	//pTheShip = new SpaceShip();
 	
-	//works same as above but without a variable
-	//maybe its for the best, probabily not though
-	//pTheShip->SpaceShip::Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000);
-	//ship.Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
+	//frame counter start function
+	theTimer.mark();
+
 	SpaceShip *pShip = new SpaceShip(GameManager);
     pShip->Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
 	GameManager.AddToList(pShip);
 	
-	/*for (int i = 0; i < NUM_ROCKS; i++)
+	for (int i = 0; i < NUM_ROCKS; i++)
 	{
 		Rock *pRock = new Rock();
 		GameManager.AddToList(pRock);
 		pRock->Initialise(Vector2D(rand() % 8000 - 4000, rand() % 8000 - 4000));
 		
-	}*/
-	
-	//frame counter start function
-	theTimer.mark();
-	
-	
+	}
+		
 	return SUCCESS;
 }
 
@@ -348,7 +330,7 @@ ErrorType Game::Update()
    // *********************************************************************
 	GameManager.UpdateAll(theTimer);
 	GameManager.RenderAll();
-
+	GameManager.CheckAllCollision();
 	return SUCCESS;
 }
 
@@ -362,7 +344,7 @@ ErrorType Game::EndOfGame()
    // Add code here to tidy up ********************************************
    // *********************************************************************
 	//Deletes all of the pointers to game objects
-	GameManager.CleanUp();
+	GameManager.EndGameCleanUp();
 
 	return SUCCESS;
 }

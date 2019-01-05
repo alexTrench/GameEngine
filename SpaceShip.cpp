@@ -12,11 +12,6 @@
 //
 //}
 
-SpaceShip::SpaceShip()
-{
-
-
-}
 
 void SpaceShip::Initialise(Vector2D pos)
 {
@@ -45,7 +40,16 @@ void SpaceShip::Update(float FrameRate)
 	MyInputs *pinputs = MyInputs::GetInstance();
 	pinputs->SampleKeyboard();
 
-
+	if (pinputs->KeyPressed(DIK_D))
+	{
+		//ErrorLogger::Writeln(L"D Pressed");
+		this->direction = direction + (turnDirection /*(FrameRate / 500.f)*/);
+	}
+	if (pinputs->KeyPressed(DIK_A))
+	{
+		//ErrorLogger::Writeln(L"A Pressed");
+		this->direction = direction - (turnDirection /*(FrameRate / 500.f)*/);
+	}
 	if (pinputs->KeyPressed(DIK_W))
 	{
 		Vector2D acceleration;
@@ -58,30 +62,49 @@ void SpaceShip::Update(float FrameRate)
 		acceleration.setBearing(direction, 0.02f);
 		velocity = velocity - acceleration * FrameRate / 5000;
 	}
-	if (pinputs->KeyPressed(DIK_D))
-	{
-		//ErrorLogger::Writeln(L"D Pressed");
-		this->direction = direction + (turnDirection /** (FrameRate / 5.f)*/);
-	}
-	if (pinputs->KeyPressed(DIK_A))
-	{
-		//ErrorLogger::Writeln(L"A Pressed");
-		this->direction = direction - (turnDirection/* * (FrameRate / 5.f)*/);
-	}
-	Vector2D friction = -0.02f * velocity;
-	velocity = velocity + friction;
-	position = position + velocity;
+	
 
-
+	//Shooting bullets 
 	//shootDelayTimer = shootDelayTimer - FrameRate;
-	if (pinputs->NewKeyPressed(DIK_SPACE)/* && shootDelayTimer <= 0*/)
+	if (pinputs->KeyPressed(DIK_SPACE)/* && shootDelayTimer <= 0*/)
 	{
 		ErrorLogger::Writeln(L"Pressing Bullet");
 		Bullet *pBullet = new Bullet();
 		pBullet->Initialise(position, velocity);
 		GameManager.AddToList(pBullet);
 		shootDelayTimer = SHOOTDELAY;
-	
+
 	}
+
+	//Updating the position of space ship
+	Vector2D friction = -0.02f * velocity;
+	velocity = velocity + friction;
+	position = position + velocity;
+
+	SpaceShipCollision.PlaceAt(position, 30);
 	
+}
+
+Circle2D* SpaceShip::GetShape()
+{
+	return &SpaceShipCollision;
+}
+
+void SpaceShip::HandleCollision(GameObject *pOther)
+{
+    int id = pOther->GetObjectID();
+	if (id == 2)
+	{
+		ErrorLogger::Writeln(L"Spaceship Collised with Rock");
+	}
+}
+
+//returns a int to all whatever handles collisions what type of object it is
+//1 is for bullets
+//2 is for rocks
+//3 is for spaceship
+//returning int is quicker than strings
+int SpaceShip::GetObjectID()
+{
+	return 3;
 }

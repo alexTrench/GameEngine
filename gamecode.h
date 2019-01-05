@@ -30,7 +30,7 @@ class Game
 {
 private:
 	ObjectManager GameManager;
-	const int NUM_ROCKS = 100;
+	const int NUM_ROCKS = 10;
 	enum GameState{MENU, PAUSED, RUNNING, GAMEOVER};
 	GameState m_currentState;      // Current state of the game 
                                   // Menu = start menu

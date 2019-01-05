@@ -8,7 +8,9 @@
 class SpaceShip: public GameObject
 {
 private:
-	ObjectManager GameManager;
+	Circle2D SpaceShipCollision;
+	ObjectManager &GameManager;
+	
 protected:
 	//member variables 
 	Vector2D velocity;
@@ -19,10 +21,7 @@ protected:
 
 public:
 
-	//constructors
-	// USE THIS ONE LATER
-	//SpaceShip(Game &game, GameTimer *theTimer);
-	SpaceShip();
+	//constructor
 	SpaceShip(ObjectManager &manager) : GameManager(manager) { ErrorLogger::Writeln(L"Calling Oject Manager Constructor"); };
 	
 
@@ -30,5 +29,8 @@ public:
 	void Initialise(Vector2D pos);
 	void Render();
 	void Update(float FrameRate);
+	Circle2D* GetShape();
+	void HandleCollision(GameObject *pOther)override;
+	int GetObjectID();
 };
 

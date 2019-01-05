@@ -57,6 +57,7 @@ void Rock::Update(float FrameRate)
 
 	//updates the position of the game object
 	position = position + drift;
+	RockCollision.PlaceAt(position, 30);
 }
 
 //shows the rocks on screen
@@ -70,4 +71,17 @@ void Rock::Render()
 	}
 }
 
+Circle2D* Rock::GetShape()
+{
+	return &RockCollision;
+}
 
+void Rock::HandleCollision(GameObject *pOther)
+{
+	//if(typedef(*pOther))
+}
+
+int Rock::GetObjectID()
+{
+	return 2;
+}
