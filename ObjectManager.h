@@ -13,6 +13,7 @@ protected:
 	//in object manager.handle collisions
 	std::list<GameObject*>::iterator it1;
 	std::list<GameObject*>::iterator it2;
+	std::list<GameObject*>::iterator it;
 public:
 	ObjectManager();
 	~ObjectManager();

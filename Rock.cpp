@@ -50,20 +50,23 @@ void Rock::Initialise(Vector2D pos)
 //void Render();
 void Rock::Update(float FrameRate) 
 {
-	//updates the rocks position each frame
-	//variables used to make the rocks fly through space
-	Vector2D drift;
-	drift.setBearing(direction, glide);
+	if (this->active == true)
+	{
+		//updates the rocks position each frame
+		//variables used to make the rocks fly through space
+		Vector2D drift;
+		drift.setBearing(direction, glide);
 
-	//updates the position of the game object
-	position = position + drift;
-	RockCollision.PlaceAt(position, 30);
+		//updates the position of the game object
+		position = position + drift;
+		RockCollision.PlaceAt(position, 30);
+	}
 }
 
 //shows the rocks on screen
 void Rock::Render()
 {
-	if (Rock::active)
+	if (this->active == true)
 	{
 		MyDrawEngine *pDE = MyDrawEngine::GetInstance();
 		pDE->DrawAt(position, image, 1.0f, direction);
@@ -78,7 +81,13 @@ Circle2D* Rock::GetShape()
 
 void Rock::HandleCollision(GameObject *pOther)
 {
-	//if(typedef(*pOther))
+	int id = pOther->GetObjectID();
+	if (id == 1)
+	{
+		ErrorLogger::Writeln(L"Rock hit by Bullet");
+		this->active = false;
+
+	}
 }
 
 int Rock::GetObjectID()

@@ -331,6 +331,7 @@ ErrorType Game::Update()
 	GameManager.UpdateAll(theTimer);
 	GameManager.RenderAll();
 	GameManager.CheckAllCollision();
+	GameManager.CleanUp();
 	return SUCCESS;
 }
 

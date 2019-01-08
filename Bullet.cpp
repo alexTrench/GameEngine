@@ -14,38 +14,44 @@ Bullet::~Bullet()
 
 void Bullet::Initialise(Vector2D startPosition, Vector2D startVelocity)
 {
-
+	elapsedTime = 0;
 	bool active = true;
-	ErrorLogger::Writeln(L"Initialise bullet");
+	//ErrorLogger::Writeln(L"Initialise bullet");
 	MyDrawEngine *pDE = MyDrawEngine::GetInstance();
 	image = pDE->LoadPicture(L"bullet.bmp");
-	position = startPosition + startVelocity;
+
+
+	position = startPosition;
+	direction = startVelocity.angle();
 	velocity = startVelocity;
+	
+
 }
 
 void Bullet::Update(float FrameRate)
 {
-	ErrorLogger::Writeln(L"Updating bullet");
+	if (this->active)
+	{
+		elapsedTime += FrameRate;
+		position = position + velocity;
+		BulletCollision.PlaceAt(position, 10.f);
+		ErrorLogger::Writeln(L"Updating bullet");
+		if (elapsedTime > 20000000)
+		{
+			this->active = false;
+		}
+	}
 
-	//PLACEHOLD ROCK FUNCTION
-	//updates the rocks position each frame
-	//variables used to make the rocks fly through space
-	Vector2D drift;
-	drift.setBearing(direction, 0.2f);
-
-	//updates the position of the game object
-	position = position + velocity;
-	BulletCollision.PlaceAt(position, 10);
 }
 
 void Bullet::Render()
 {
-	//if (active)
-	//{
+	if (this->active)
+	{
 		MyDrawEngine *pDE = MyDrawEngine::GetInstance();
 		pDE->DrawAt(position, image, 3.0f, direction);
 		ErrorLogger::Writeln(L"Rendering bullet");
-	//}
+	}
 
 }
 
@@ -60,6 +66,7 @@ void Bullet::HandleCollision(GameObject *pOther)
 	if(id == 2)
 	{
 		ErrorLogger::Writeln(L"Bullet hit Rock");
+		this->active = false;
 	}
 }
 

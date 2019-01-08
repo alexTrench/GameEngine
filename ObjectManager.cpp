@@ -1,5 +1,6 @@
 #include "ObjectManager.h"
 #include <iostream>
+#include <algorithm>
 
 ObjectManager::ObjectManager()
 {
@@ -59,29 +60,22 @@ void ObjectManager::EndGameCleanUp()
 
 void ObjectManager::CleanUp()
 {
-	for (GameObject *pNextObject : pObjectList)
+	for (GameObject* &nextObjectPointer : pObjectList) // The & is critical. Check.
 	{
-		if (pNextObject->IsActive() == false)
+		if (nextObjectPointer->IsActive() == false)
 		{
-		delete pNextObject;
-		pNextObject = nullptr;
+			delete nextObjectPointer;
+			nextObjectPointer = nullptr; // Always do this when deleting! 
 		}
 	}
+
+	auto it = std::remove(pObjectList.begin(), pObjectList.end(), nullptr);
+	pObjectList.erase(it, pObjectList.end());
+	MyDrawEngine::GetInstance()->WriteInt(Vector2D(0, 0), pObjectList.size(), MyDrawEngine::PURPLE);
 }
 
 void ObjectManager::CheckAllCollision()
 {
-	//for (GameObject* &nextObjectPointer : pObjectList) // The & is critical. Check.
-	//{
-	//if (nextObjectPointer->IsActive() == false)
-	//	{
-	//		delete nextObjectPointer;
-	//		nextObjectPointer = nullptr; // Always do this when deleting! 
-	//	}
-	//}
-	// This is now easier
-	//auto it = std::remove(pObjectList.begin(), pObjectList.end(), nullptr);
-	//pObjectList.erase(it, objectList.end());
 
 	for (it1 = pObjectList.begin(); it1 != pObjectList.end(); it1++)
 	{

@@ -15,17 +15,17 @@ protected:
 	Vector2D position;
 	float direction;
 	bool active;
-	float velocity;
+	Vector2D velocity;
 
 public:
 
 	virtual void Render() = 0;
 	virtual void Update(float FrameRate) = 0;
 
-
+	//destructor to avoid memeory leaks in deletion of pointers
 	virtual ~GameObject() {};
 
-	bool IsActive() { if (GameObject::active = true) return true; else return false; };
+	bool IsActive() { return this->active; }
 	virtual IShape2D* GetShape() = 0;
 	virtual void HandleCollision(GameObject *pOther) = 0;
 	virtual int GetObjectID() = 0;
