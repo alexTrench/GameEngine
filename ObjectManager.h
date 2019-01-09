@@ -26,4 +26,5 @@ public:
 	void EndGameCleanUp();
 	void CleanUp();
 	void CheckAllCollision();
+	void Debug();
 };

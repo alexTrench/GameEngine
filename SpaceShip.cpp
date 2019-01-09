@@ -65,7 +65,7 @@ void SpaceShip::Update(float FrameRate)
 	
 
 	//Shooting bullets 
-	shootDelayTimer = shootDelayTimer - FrameRate;
+	shootDelayTimer -= FrameRate;
 	if (pinputs->KeyPressed(DIK_SPACE) && shootDelayTimer <= 0)
 	{
 		Vector2D BulletVelocity;
@@ -74,6 +74,7 @@ void SpaceShip::Update(float FrameRate)
 		Bullet *pBullet = new Bullet();
 		pBullet->Initialise(position, BulletVelocity);
 		GameManager.AddToList(pBullet);
+		//sets the delay back to a constnt delay
 		shootDelayTimer = SHOOTDELAY;
 
 	}

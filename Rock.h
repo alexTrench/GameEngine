@@ -27,5 +27,9 @@ public:
 
 	void HandleCollision(GameObject *pOther) override;
 	int GetObjectID();
+
+	//set direction of rocks
+	//used for rock spawner to direct them onscreen
+	void SetDirection(int newDirection);
 };
 

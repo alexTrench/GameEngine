@@ -59,7 +59,7 @@ void Rock::Update(float FrameRate)
 
 		//updates the position of the game object
 		position = position + drift;
-		RockCollision.PlaceAt(position, 30);
+		RockCollision.PlaceAt(position, 50);
 	}
 }
 
@@ -93,4 +93,9 @@ void Rock::HandleCollision(GameObject *pOther)
 int Rock::GetObjectID()
 {
 	return 2;
+}
+
+void Rock::SetDirection(int newDirection)
+{
+	this->direction = newDirection;
 }

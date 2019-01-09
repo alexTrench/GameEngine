@@ -71,7 +71,16 @@ void ObjectManager::CleanUp()
 
 	auto it = std::remove(pObjectList.begin(), pObjectList.end(), nullptr);
 	pObjectList.erase(it, pObjectList.end());
-	MyDrawEngine::GetInstance()->WriteInt(Vector2D(0, 0), pObjectList.size(), MyDrawEngine::PURPLE);
+
+	}
+
+void ObjectManager::Debug()
+{
+	//Debuging stuff
+	//draw the number of game objects on the screen so we know the objects get deleted
+	MyDrawEngine::GetInstance()->WriteText(Vector2D(-1750, 1000), L"Objects:", MyDrawEngine::PURPLE);
+	MyDrawEngine::GetInstance()->WriteInt(Vector2D(-1600, 1000), pObjectList.size(), MyDrawEngine::PURPLE);
+
 }
 
 void ObjectManager::CheckAllCollision()

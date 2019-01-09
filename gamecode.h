@@ -12,6 +12,7 @@
 #include "mysoundengine.h"
 #include "SpaceShip.h"
 #include "Rock.h"
+#include "RockSpawner.h"
 #include <list>
 #include "ObjectManager.h"
 

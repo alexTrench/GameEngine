@@ -12,6 +12,7 @@ Bullet::~Bullet()
 
 }
 
+
 void Bullet::Initialise(Vector2D startPosition, Vector2D startVelocity)
 {
 	elapsedTime = 0;
@@ -36,7 +37,7 @@ void Bullet::Update(float FrameRate)
 		position = position + velocity;
 		BulletCollision.PlaceAt(position, 10.f);
 		ErrorLogger::Writeln(L"Updating bullet");
-		if (elapsedTime > 20000000)
+		if (elapsedTime > 13000000)
 		{
 			this->active = false;
 		}

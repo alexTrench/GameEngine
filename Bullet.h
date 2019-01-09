@@ -6,6 +6,7 @@ class Bullet: public GameObject
 private:
 	Circle2D BulletCollision;
 	float elapsedTime;
+	static const int MAXMISSILES = 300;
 protected:
 
 public:

@@ -292,6 +292,22 @@ ErrorType Game::StartOfGame()
 	
 	//frame counter start function
 	theTimer.mark();
+	//Create to rock spawners at the bottom just off screen so there are always rocks in the level
+	//this could be improved 
+
+	RockSpawner *pRockSpawner = new RockSpawner(GameManager);
+	pRockSpawner->Initialise(Vector2D(1000, -1400));
+	GameManager.AddToList(pRockSpawner);
+
+	RockSpawner *pRockSpawner2 = new RockSpawner(GameManager);
+	pRockSpawner2->Initialise(Vector2D(-1000, -1400));
+	GameManager.AddToList(pRockSpawner2);
+
+	RockSpawner *pRockSpawner3 = new RockSpawner(GameManager);
+	pRockSpawner3->Initialise(Vector2D(0, -1400));
+	GameManager.AddToList(pRockSpawner3);
+
+
 
 	SpaceShip *pShip = new SpaceShip(GameManager);
     pShip->Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
@@ -332,6 +348,7 @@ ErrorType Game::Update()
 	GameManager.RenderAll();
 	GameManager.CheckAllCollision();
 	GameManager.CleanUp();
+	GameManager.Debug();
 	return SUCCESS;
 }
 

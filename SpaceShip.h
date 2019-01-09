@@ -10,7 +10,7 @@ class SpaceShip: public GameObject
 private:
 	Circle2D SpaceShipCollision;
 	ObjectManager &GameManager;
-	const float BULLETSPEED = 100;
+	const float BULLETSPEED = 50;
 
 protected:
 	//member variables
@@ -18,9 +18,8 @@ protected:
 	Vector2D frontOfShip;
 	Vector2D velocity;
 	Vector2D acceleration;
-	const int RATEOFFIRE = 1;
-	float shootDelayTimer = 1.f;
-	const int SHOOTDELAY = 100;
+	float shootDelayTimer;
+	const float SHOOTDELAY = 1500000;
 	float turnDirection = 0.1f;
 
 public:
