@@ -31,7 +31,7 @@ void ObjectManager::UpdateAll(GameTimer &theTimer)
 		}
 		else 
 		{
-			ErrorLogger::Writeln(L"next object pointer is null");
+			//ErrorLogger::Writeln(L"next object pointer is null");
 		}
 	}
 	

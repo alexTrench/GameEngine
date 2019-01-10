@@ -13,6 +13,7 @@ protected:
 	Vector2D drift;
 	//used to give the rock a slow constant movement during gameplay
 	int glide,direction;
+	float elapsedTime;
 public:
 	Rock();
 	~Rock();

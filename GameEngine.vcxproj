@@ -152,7 +152,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Allocator.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="ErrorLogger.h" />
@@ -160,12 +159,12 @@
     <ClInclude Include="gamecode.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="gametimer.h" />
+    <ClInclude Include="MemoryManager.h" />
     <ClInclude Include="mydrawengine.h" />
     <ClInclude Include="myinputs.h" />
     <ClInclude Include="mysoundengine.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="objecttypes.h" />
-    <ClInclude Include="PowerUp.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="RockSpawner.h" />
     <ClInclude Include="Shapes.h" />
@@ -173,18 +172,17 @@
     <ClInclude Include="vector2D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Allocator.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
     <ClCompile Include="gamecode.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="gametimer.cpp" />
+    <ClCompile Include="MemoryManager.cpp" />
     <ClCompile Include="mydrawengine.cpp" />
     <ClCompile Include="myinputs.cpp" />
     <ClCompile Include="mysoundengine.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
-    <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="RockSpawner.cpp" />
     <ClCompile Include="Shapes.cpp" />

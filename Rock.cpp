@@ -60,6 +60,16 @@ void Rock::Update(float FrameRate)
 		//updates the position of the game object
 		position = position + drift;
 		RockCollision.PlaceAt(position, 50);
+
+		//get a instance of the raw engine to check if the rocks are in view of the camera
+		MyDrawEngine *pDE = MyDrawEngine::GetInstance();
+		elapsedTime += FrameRate;
+		//if a certain time has gone by and the rock isnt on screen, make it inactive and delete
+		if (elapsedTime > 1000000 && pDE->IsOnCamera(this->position) == false)
+		{
+			this->active = false;
+		}
+	
 	}
 }
 
@@ -69,8 +79,16 @@ void Rock::Render()
 	if (this->active == true)
 	{
 		MyDrawEngine *pDE = MyDrawEngine::GetInstance();
-		pDE->DrawAt(position, image, 1.0f, direction);
+		if (pDE != nullptr)
+		{
+			pDE->DrawAt(position, image, 1.0f, direction);
+		}
 
+		if (elapsedTime > 100000000 && pDE->IsOnCamera(this->position))
+		{
+			this->active = false;
+		}
+		
 	}
 }
 
@@ -84,7 +102,7 @@ void Rock::HandleCollision(GameObject *pOther)
 	int id = pOther->GetObjectID();
 	if (id == 1)
 	{
-		ErrorLogger::Writeln(L"Rock hit by Bullet");
+		//ErrorLogger::Writeln(L"Rock hit by Bullet");
 		this->active = false;
 
 	}

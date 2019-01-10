@@ -293,32 +293,61 @@ ErrorType Game::StartOfGame()
 	//frame counter start function
 	theTimer.mark();
 	//Create to rock spawners at the bottom just off screen so there are always rocks in the level
-	//this could be improved 
-
+	//this could be improved, but its fine for now 
+	//could be added to a seperate level class and called from their
 	RockSpawner *pRockSpawner = new RockSpawner(GameManager);
-	pRockSpawner->Initialise(Vector2D(1000, -1400));
-	GameManager.AddToList(pRockSpawner);
+	if (pRockSpawner != nullptr)
+	{
+		pRockSpawner->Initialise(Vector2D(1000, -1200));
+		GameManager.AddToList(pRockSpawner);
+	}
 
 	RockSpawner *pRockSpawner2 = new RockSpawner(GameManager);
-	pRockSpawner2->Initialise(Vector2D(-1000, -1400));
-	GameManager.AddToList(pRockSpawner2);
+	if (pRockSpawner2 != nullptr)
+	{
+		pRockSpawner2->Initialise(Vector2D(-1000, -1200));
+		GameManager.AddToList(pRockSpawner2);
+	}
 
 	RockSpawner *pRockSpawner3 = new RockSpawner(GameManager);
-	pRockSpawner3->Initialise(Vector2D(0, -1400));
-	GameManager.AddToList(pRockSpawner3);
+
+	if (pRockSpawner3 != nullptr)
+	{
+		
+		pRockSpawner3->Initialise(Vector2D(0, -1200));
+		GameManager.AddToList(pRockSpawner3);
+	}
 
 
+	RockSpawner *pRockSpawner4 = new RockSpawner(GameManager);
+	if (pRockSpawner4 != nullptr)
+	{
+		pRockSpawner4->Initialise(Vector2D(700, -1200));
+		GameManager.AddToList(pRockSpawner4);
+	}
 
+	RockSpawner *pRockSpawner5 = new RockSpawner(GameManager);
+	if (pRockSpawner5 != nullptr)
+	{
+		pRockSpawner5->Initialise(Vector2D(-700, -1200));
+		GameManager.AddToList(pRockSpawner5);
+	}
+	//add the players spaceship to the game and object list 
 	SpaceShip *pShip = new SpaceShip(GameManager);
-    pShip->Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
-	GameManager.AddToList(pShip);
-	
+	if (pShip != nullptr)
+	{
+		pShip->Initialise(Vector2D(rand() % 2000 - 1000, rand() % 2000 - 1000));
+		GameManager.AddToList(pShip);
+	}
+
 	for (int i = 0; i < NUM_ROCKS; i++)
 	{
 		Rock *pRock = new Rock();
-		GameManager.AddToList(pRock);
-		pRock->Initialise(Vector2D(rand() % 8000 - 4000, rand() % 8000 - 4000));
-		
+		if (pRock != nullptr)
+		{
+			GameManager.AddToList(pRock);
+			pRock->Initialise(Vector2D(rand() % 8000 - 4000, rand() % 8000 - 4000));
+		}
 	}
 		
 	return SUCCESS;

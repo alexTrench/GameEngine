@@ -1,18 +1,10 @@
 #include "SpaceShip.h"
 #include "Bullet.h"
 
-//constructor
-//constructer that sets a reference to the game
-//so that the space ship can seed the game bullets when created
-//should be moved to the gameoject manager later 
-//USE THIS ONE LATER
-//SpaceShip::SpaceShip(Game &game, GameTimer *theTimer) :theGame(game)
-//{
-//
-//
-//}
 
 
+//sets up the position of the ship
+//aswell as setting it to active
 void SpaceShip::Initialise(Vector2D pos)
 {
 	//set active 
@@ -24,8 +16,10 @@ void SpaceShip::Initialise(Vector2D pos)
 	
 }
 
+//draws the ship on the screen at a certain location
 void SpaceShip::Render()
 {
+
 	if (active)
 	{
 		MyDrawEngine *pDE = MyDrawEngine::GetInstance();
@@ -37,9 +31,12 @@ void SpaceShip::Render()
 
 void SpaceShip::Update(float FrameRate)
 {
+	//gets a instance to the keyboard for keypresses
 	MyInputs *pinputs = MyInputs::GetInstance();
 	pinputs->SampleKeyboard();
 
+	//movement
+	//up down left right
 	if (pinputs->KeyPressed(DIK_D))
 	{
 		//ErrorLogger::Writeln(L"D Pressed");
@@ -65,6 +62,7 @@ void SpaceShip::Update(float FrameRate)
 	
 
 	//Shooting bullets 
+	//adds a delay for how fast the ship can shoot
 	shootDelayTimer -= FrameRate;
 	if (pinputs->KeyPressed(DIK_SPACE) && shootDelayTimer <= 0)
 	{
@@ -91,11 +89,14 @@ void SpaceShip::Update(float FrameRate)
 
 }
 
+//gets a reference to the collision 
 Circle2D* SpaceShip::GetShape()
 {
 	return &SpaceShipCollision;
 }
 
+//find out the other game objects ID
+//and does something based of that
 void SpaceShip::HandleCollision(GameObject *pOther)
 {
     int id = pOther->GetObjectID();

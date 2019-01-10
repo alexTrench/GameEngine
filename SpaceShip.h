@@ -19,13 +19,13 @@ protected:
 	Vector2D velocity;
 	Vector2D acceleration;
 	float shootDelayTimer;
-	const float SHOOTDELAY = 1500000;
+	const float SHOOTDELAY = 1200000;
 	float turnDirection = 0.1f;
 
 public:
 
 	//constructor
-	SpaceShip(ObjectManager &manager) : GameManager(manager) { ErrorLogger::Writeln(L"Calling Oject Manager Constructor"); };
+	SpaceShip(ObjectManager &manager) : GameManager(manager) {};
 	
 
 	//member functions
