@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "ObjectManager.h"
+#include "MemoryManager.h"
 
 //Class to create more rock objects during the game
 class RockSpawner: public GameObject

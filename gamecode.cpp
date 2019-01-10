@@ -373,6 +373,7 @@ ErrorType Game::Update()
 
    // Your code goes here *************************************************
    // *********************************************************************
+	//goes through all of the game manager functions to simulate the game
 	GameManager.UpdateAll(theTimer);
 	GameManager.RenderAll();
 	GameManager.CheckAllCollision();

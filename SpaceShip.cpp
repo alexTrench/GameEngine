@@ -70,6 +70,8 @@ void SpaceShip::Update(float FrameRate)
 		BulletVelocity.setBearing(SpaceShip::direction, BULLETSPEED);
 		//ErrorLogger::Writeln(L"Pressing Bullet");
 		Bullet *pBullet = new Bullet();
+		//pBullet = s_pool.Allocate();
+		//new(pBullet) Bullet();
 		pBullet->Initialise(position, BulletVelocity);
 		GameManager.AddToList(pBullet);
 		//sets the delay back to a constnt delay
@@ -102,8 +104,8 @@ void SpaceShip::HandleCollision(GameObject *pOther)
     int id = pOther->GetObjectID();
 	if (id == 2)
 	{
-		ErrorLogger::Writeln(L"Spaceship Collised with Rock");
-
+		//ErrorLogger::Writeln(L"Spaceship Collised with Rock");
+		this->active = false;
 	}
 }
 
@@ -116,3 +118,5 @@ int SpaceShip::GetObjectID()
 {
 	return 3;
 }
+
+MemoryManager<SpaceShip>SpaceShip::s_pool(MAXSHIPS);

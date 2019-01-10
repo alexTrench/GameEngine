@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-
+#include "MemoryManager.h"
 
 
 class Rock: public GameObject
